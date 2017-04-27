@@ -1,0 +1,7 @@
+<!-- <div ng-show="ctrl.loginService.isLoggedIn()" class="ng-hide">Hello {{ctrl.loginService.loggedInUser.name}}! You logged in at {{ctrl.loginService.loggedInUser.loginTime}}.</div> -->
+<div class="ui input">
+  <input type="text" ng-model="ctrl.loginService.inputName" placeholder="Username">
+  {{ ctrl }}
+</div>
+<button class="ui button" ng-click="ctrl.loginService.login(ctrl.loginService.inputName)" ng-hide="ctrl.loginService.isLoggedIn()">Login</button>
+<button class="ui button" ng-click="ctrl.loginService.logout()" ng-show="ctrl.loginService.isLoggedIn()">Logout</button>

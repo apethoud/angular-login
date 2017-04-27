@@ -1,0 +1,16 @@
+<div class="ui secondary pointing menu">
+  <div class="right menu">
+    <a ng-class="{ active: ctrl.navUpdateService.updateActive('/welcome') }" class="item" href="/welcome">
+      Welcome
+    </a>
+    <a ng-class="{ active: ctrl.navUpdateService.updateActive('/rooms') }" class="item" href="/rooms">
+      Rooms
+    </a>
+    <a ng-class="{ active: ctrl.navUpdateService.updateActive('/login') }" class="item" href="/login" ng-hide="ctrl.loginService.isLoggedIn()">
+      Login
+    </a>
+    <a class="item" ng-click="ctrl.loginService.logout()" ng-show="ctrl.loginService.isLoggedIn()">
+      Logout
+    </a>
+  </div>
+</div>
