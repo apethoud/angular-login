@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Fredoka+One|Roboto');
+
 /*html {
   background: url(../assets/images/background.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -12,4 +14,26 @@ body {
 
 .ui.inverted.list .list>.item .header, .ui.inverted.list>.item .header {
 	margin-bottom: 1em;
+}
+/*##### NAV #####*/
+
+.ui.secondary.pointing.menu.nav {
+	background-color: white;
+}
+
+.nav .logo {
+	font-family: 'Fredoka One', cursive;
+	font-size: 2em;
+	padding-top: 8px;
+	padding-left: 50px;
+}
+
+.nav .item {
+	font-family: 'Roboto', sans-serif;
+}
+
+/*##### BANNER #####*/
+
+.ui.grid.banner {
+	margin-top: 100px;
 }
