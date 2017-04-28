@@ -1,13 +1,12 @@
 <div class="ui secondary pointing menu nav">
   <div class="logo">Roomy</div>
   <div class="right menu">
-    <a ng-class="{ active: ctrl.navUpdateService.updateActive('/welcome') }" class="item" href="/welcome">
-      Welcome
+    <a ng-repeat="navItem in ctrl.navigationService.getNavigation()"
+       ng-href="{{ navItem.url }}"
+       ng-class="{ active: ctrl.isItemActive(navitem.url) }">
+      {{ navItem.title }}
     </a>
-    <a ng-class="{ active: ctrl.navUpdateService.updateActive('/rooms') }" class="item" href="/rooms">
-      Rooms
-    </a>
-    <a ng-class="{ active: ctrl.navUpdateService.updateActive('/login') }" class="item" href="/login" ng-hide="ctrl.loginService.isLoggedIn()">
+    <a ng-class="{ active: ctrl.isItemActive('/login') }" class="item" href="/login" ng-hide="ctrl.loginService.isLoggedIn()">
       Login
     </a>
     <a class="item" ng-click="ctrl.loginService.logout()" ng-show="ctrl.loginService.isLoggedIn()">

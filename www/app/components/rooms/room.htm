@@ -1,0 +1,61 @@
+<div class="contentPanel room">
+    <div class="ui container">
+        <h2 class="ui horizontal divider inverted header">
+            <i class="building icon"></i>Room Name Here
+        </h2>
+
+        <img class="ui medium left floated image" src="photo.jpg">
+
+        <button class="ui large button" ng-click="ctrl.consoleFormController()">Help me</button>
+
+        <form novalidate name="ctrl.myForm">
+            <div class="ui large inverted form">
+                <div class="two fields">
+                    <div class="field">
+                        <!--
+                            syntax for ng-options we used
+                            ng-options="SELECTEDVALUE as DISPLAYNAME for ITEM in COLLECTION"
+                        -->
+                        <label>Reserve For:</label>
+                        <select></select>
+                    </div>
+                    <div class="field">
+                        <label>Special Instructions:</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Start Time:</label>
+                        <input type="time">
+                    </div>
+                    <div class="field">
+                        <label>End Time:</label>
+                        <input type="time">
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Person to Contact:</label>
+                        <input type="email">
+                    </div>
+                    <div class="field">
+                        <label>Person to Contact (confirm):</label>
+                        <input type="email">
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="inline field">
+                        <label>I agree to be clean and good to the room:</label>
+                        <input type="checkbox">
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="field">
+                        <button type="submit" class="ui large submit button">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
