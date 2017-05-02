@@ -1,15 +1,15 @@
 <div class="contentPanel room">
     <div class="ui container">
-        <h2 class="ui horizontal divider inverted header">
-            <i class="building icon"></i>Room Name Here
+        <h2 class="ui horizontal divider header">
+            <i class="building icon"></i>{{ ctrl.roomService.getRoomById() }}
         </h2>
 
-        <img class="ui medium left floated image" src="photo.jpg">
+        <img class="ui medium left floated image" ng-src="photo.jpg">
 
         <button class="ui large button" ng-click="ctrl.consoleFormController()">Help me</button>
 
-        <form novalidate name="ctrl.myForm">
-            <div class="ui large inverted form">
+        <form novalidate name="ctrl.myForm" class="css-form">
+            <div class="ui large form">
                 <div class="two fields">
                     <div class="field">
                         <!--
@@ -21,26 +21,26 @@
                     </div>
                     <div class="field">
                         <label>Special Instructions:</label>
-                        <input type="text">
+                        <input type="text" ng-model="user.specialInstr" name="uSpecInst" required="">
                     </div>
                 </div>
                 <div class="two fields">
                     <div class="field">
                         <label>Start Time:</label>
-                        <input type="time">
+                        <input type="time" ng-model="user.startTime" name="uStartTime" required="">
                     </div>
                     <div class="field">
                         <label>End Time:</label>
-                        <input type="time">
+                        <input type="time" ng-model="user.endTime" name="uEndTime" required="">
                     </div>
                 </div>
                 <div class="two fields">
                     <div class="field">
-                        <label>Person to Contact:</label>
-                        <input type="email">
+                        <label>Contact Email:</label>
+                        <input type="email" ng-model="user.email" name="uEmail" required="">
                     </div>
                     <div class="field">
-                        <label>Person to Contact (confirm):</label>
+                        <label>Contact Email (confirm):</label>
                         <input type="email">
                     </div>
                 </div>
@@ -49,6 +49,11 @@
                         <label>I agree to be clean and good to the room:</label>
                         <input type="checkbox">
                     </div>
+                </div>
+                <div class="ui error message">
+                    <div class="header">Error</div>
+                    <p ng-show="ctrl.myForm.uEmail.$error.required">Contact Email cannot be empty.</p>
+                    <p ng-show="ctrl.myForm.uEmail.$error.email">Contact Email is not a valid email address.</p>
                 </div>
                 <div class="fields">
                     <div class="field">
@@ -59,3 +64,5 @@
         </form>
     </div>
 </div>
+<pre>user = {{user | json}}</pre>
+<pre>master = {{master | json}}</pre>

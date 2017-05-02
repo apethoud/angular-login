@@ -12,7 +12,6 @@
             let navigationItems = [];
 
             function getNavigation() {
-              console.log("running getNavigation and navigationItems is: ", navigationItems);
                 return navigationItems;
             }
 

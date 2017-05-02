@@ -3,7 +3,8 @@
   <div class="right menu">
     <a ng-repeat="navItem in ctrl.navigationService.getNavigation()"
        ng-href="{{ navItem.url }}"
-       ng-class="{ active: ctrl.isItemActive(navitem.url) }">
+       ng-class="{ active: ctrl.isItemActive(navItem.url) }"
+       class="item">
       {{ navItem.title }}
     </a>
     <a ng-class="{ active: ctrl.isItemActive('/login') }" class="item" href="/login" ng-hide="ctrl.loginService.isLoggedIn()">

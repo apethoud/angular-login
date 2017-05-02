@@ -6,6 +6,7 @@
         this.loginService = loginService;
         this.navigationService = navigationService;
         this.roomService = roomService;
+        this.isItemActive = isItemActive;
 
         // add welcome link
         let welcomeItem = {
@@ -27,14 +28,6 @@
 
           navigationService.addNavigationItem(itemToAdd);
         });
-
-        // add login link
-        let loginItem = {
-          title : "Login",
-          url   : "/login"
-        };
-
-        navigationService.addNavigationItem(loginItem);
 
         function isItemActive(viewLocation) {
           return (viewLocation === $location.path());

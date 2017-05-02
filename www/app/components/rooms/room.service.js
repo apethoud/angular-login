@@ -2,7 +2,7 @@
     angular
         .module("application")
 
-        .factory("roomService", function() {
+        .factory("roomService", function($location, $routeParams) {
             return {
                 getRooms,
                 getRoomById,
@@ -12,11 +12,21 @@
             let rooms = null;
 
             function getRooms() {
+                console.log("getRooms is: ", getRooms);
                 return rooms;
             }
 
-            function getRoomById(id) {
-                // todo:  implement
+            function getRoomById() {
+                let roomsArray = [];
+                let myRoom = "";
+                roomsArray.push(rooms);
+
+                for(var i = 0; i < roomsArray[0].length; i++) {
+                    if(roomsArray[0][i].id === parseInt($routeParams.id, 10)) {
+                        myRoom = roomsArray[0][i].name;
+                    }
+                }
+                return myRoom;
             }
 
             function fetchRoomsFromDB() {
