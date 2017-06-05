@@ -7,11 +7,11 @@
        class="item">
       {{ navItem.title }}
     </a>
-    <a ng-class="{ active: ctrl.isItemActive('/login') }" class="item" href="/login" ng-hide="ctrl.loginService.isLoggedIn()">
-      Login
-    </a>
-    <a class="item" ng-click="ctrl.loginService.logout()" ng-show="ctrl.loginService.isLoggedIn()">
-      Logout
-    </a>
+    <span class="item">
+      <img class="ui avatar image" ng-src="{{ ctrl.loginService.getLoggedInUser().photoURL }}" ng-show="ctrl.loginService.isLoggedIn()" alt="">
+      <span ng-show="ctrl.loginService.isLoggedIn()">{{ ctrl.loginService.getFirstName() }}</span>
+    </span>
+    <button class="tiny ui blue button" ng-click="ctrl.loginService.login(ctrl.refresh)" ng-hide="ctrl.loginService.isLoggedIn()">Login</button>
+    <button class="tiny ui blue button" ng-click="ctrl.loginService.logout()" ng-show="ctrl.loginService.isLoggedIn()">Logout</button>
   </div>
 </div>

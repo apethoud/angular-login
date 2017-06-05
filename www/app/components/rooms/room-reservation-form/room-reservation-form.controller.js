@@ -2,7 +2,7 @@
     angular
         .module("application")
 
-        .controller("roomComponentController", function (roomService) {
+        .controller("roomReservationFormController", function (roomService) {
             this.$onInit = function() {
               debugger;
 
@@ -29,11 +29,17 @@
                 console.log("start", this.startTime);
                 console.log("end", this.endTime);
 
+                console.log("this is: ", this);
+                console.log("this.room is: ", this.room);
+                // if(!this.room.reservations) {
+                //   this.room.reservations = [];
+                // }
+
+                console.log(this.myForm);
+
                 if (this.startTime >= this.endTime) return alert("Message from controller: time invalid");
 
                 if (this.myForm.$invalid) return alert("Message from controller: form invalid");
-
-                roomService.writeRoomReservation();
 
                 alert("Room submitted");
             };

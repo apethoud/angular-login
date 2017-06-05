@@ -2,11 +2,12 @@
     angular
         .module("application")
 
-        .factory("roomService", function($location, $routeParams) {
+        .factory("roomService", function($http, applicationSettings) {
             return {
                 getRooms,
                 getRoomById,
-                fetchRoomsFromDB
+                fetchRoomsFromDB,
+                writeRoomReservation
             };
 
             let rooms = null;
@@ -16,39 +17,58 @@
                 return rooms;
             }
 
-            function getRoomById() {
-                let roomsArray = [];
-                let myRoom = "";
-                roomsArray.push(rooms);
-
-                for(var i = 0; i < roomsArray[0].length; i++) {
-                    if(roomsArray[0][i].id === parseInt($routeParams.id, 10)) {
-                        myRoom = roomsArray[0][i].name;
-                    }
-                }
-                return myRoom;
+            function getRoomById(id) {
+              debugger;
+              return $http.get(applicationSettings.getFirebaseRestUrl("rooms/${id}"))
+                .then(response => response.data)
+                .then(data => {
+                    data.id = id;
+                    return data;
+                });
+                    // let roomsArray = [];
+                    // let myRoom = "";
+                    // roomsArray.push(rooms);
+                    //
+                    // for(var i = 0; i < roomsArray[0].length; i++) {
+                    //     if(roomsArray[0][i].id === parseInt($routeParams.id, 10)) {
+                    //         myRoom = roomsArray[0][i].name;
+                    //     }
+                    // }
+                    // return myRoom;
             }
 
             function fetchRoomsFromDB() {
-                rooms = [
-                    {
-                        name    : "Donkey Kong",
-                        id      : 1,
-                        picture : '/assets/images/dk.jpg'
-                    },
-                    {
-                        name    : "Sonic",
-                        id      : 2,
-                        picture : '/assets/images/sonic.jpg'
-                    },
-                    {
-                        name    : "Zelda",
-                        id      : 3,
-                        picture : '/assets/images/zelda.jpg'
-                    },
-                ];
+              return $http.get(applicationSettings.getFirebaseRestUrl("rooms"))
+                .then(response => response.data)
+                .then(rooms => {
+                    angular.forEach(rooms, function(value, key) {
+                        value.id = key;
+                        console.log("Room updated during fetch", value);
+                    });
+                    return rooms;
+                });
+            }
 
-                return rooms;
+            function writeRoomReservation(id, reservation) {
+              return getRoomById(id)
+                .then(room => {
+                  return $http.post(
+                    applicationSettings.getFirebaseRestUrl(`rooms/${id}/reservations/${getRoomDateKey()}`),
+                    reservation
+                  )
+                })
+            }
+
+            function getRoomDateKey(date) {
+              let dateKey;
+
+              dateKey = date
+                          ? new Date(date).toDateString()
+                          : new Date().toDateString();
+
+              dateKey = dateKey.replace(/ /g, "");
+
+              return dateKey;
             }
         });
 }(window.angular));

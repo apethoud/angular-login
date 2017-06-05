@@ -1,7 +1,7 @@
 ( function(angular) {
   angular
     .module("application")
-    .controller("navigationController", function($location, loginService, navigationService, roomService) {
+    .controller("navigationController", function($location, loginService, navigationService, roomService, $scope) {
       this.$onInit = function() { // add to each controller
         this.loginService = loginService;
         this.navigationService = navigationService;
@@ -18,20 +18,22 @@
 
         // add room links
         // this is synchronous for now
-        let rooms = roomService.fetchRoomsFromDB();
+        roomService.fetchRoomsFromDB().then(rooms => {
+          console.log(rooms);
+          angular.forEach(rooms, function(objectValue, objectKey) {
+            const itemToAdd = {
+              title : objectValue.name,
+              url   : `/room/${objectKey}`
+            };
 
-        rooms.forEach(function(room) {
-          const itemToAdd = {
-            title : room.name,
-            url   : `/room/${room.id}`
-          };
-
-          navigationService.addNavigationItem(itemToAdd);
+            navigationService.addNavigationItem(itemToAdd);
+          });
         });
 
         function isItemActive(viewLocation) {
           return (viewLocation === $location.path());
         }
       };
+
     });
 }(window.angular));

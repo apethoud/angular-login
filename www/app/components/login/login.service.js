@@ -1,13 +1,16 @@
 (function(angular) {
   angular
     .module("application")
-    .service("loginService", function($location) {
+    .service("loginService", function($rootScope) {
       // public API
-      this.loggedInUser = {};
       this.login = _login;
       this.logout = _logout;
       this.isLoggedIn = _isLoggedIn;
+      this.getLoggedInUser = _getLoggedInUser;
+      this.getFirstName = _getFirstName;
 
+      let loggedInUser = null;
+      let notifyControllerCallback = null;
 
       // FORM CREATION AND VALIDATION INSTRUCTIONS
       // you must name a form for angular to recognize it <form name="myForm" ...>
@@ -18,24 +21,53 @@
       // to validate an email: ng-class="{ 'error': myForm.emailAddress.$invalid }"
 
       // implementation
-      function _login(inputName) {
-        this.loggedInUser = {
-          name: inputName
-        };
 
-        this.inputName = null;
+      firebase.auth().onAuthStateChanged(updateLogInStatus);
 
-        $location.path('/rooms');
+      function updateLogInStatus(authenticatedUser) {
+        console.log("updateLogInStatus triggered");
+        console.log("authenticatedUser is: ", authenticatedUser);
+        console.log("notifyControllerCallback is: ", notifyControllerCallback);
+        loggedInUser = authenticatedUser;
+        // $rootScope.$apply();
+        debugger;
+      }
+
+      function _getLoggedInUser() {
+        console.log("loggedInUser is: ", loggedInUser);
+        return loggedInUser;
+      }
+
+      function _login() {
+        return firebase.auth().signInWithPopup(new firebase.auth.GithubAuthProvider());
+
+        // this.loggedInUser = {
+        //   name: inputName
+        // };
+        //
+        // this.inputName = null;
+        //
+        // $location.path('/rooms');
       }
 
       function _logout() {
-        this.loggedInUser = {};
+        return firebase.auth().signOut();
 
-        $location.path('/welcome');
+        // this.loggedInUser = {};
+        //
+        // $location.path('/welcome');
       }
 
       function _isLoggedIn() {
-        return Object.keys(this.loggedInUser).length > 0;
+        return Boolean(loggedInUser);
+      }
+
+      function _getFirstName() {
+        if (loggedInUser) {
+        return loggedInUser.displayName.split(' ')[0];
+      } else {
+        return "";
+      }
       }
     });
 }(window.angular));

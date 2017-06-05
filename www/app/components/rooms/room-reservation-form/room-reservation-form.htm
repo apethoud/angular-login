@@ -1,0 +1,54 @@
+<form novalidate name="ctrl.myForm" ng-submit="ctrl.roomSubmission()" class="css-form">
+    <div class="ui large form">
+        <div class="two fields">
+            <div class="field">
+                <!--
+                    syntax for ng-options we used
+                    ng-options="SELECTEDVALUE as DISPLAYNAME for ITEM in COLLECTION"
+                -->
+                <label>Reserve For:</label>
+                <select></select>
+            </div>
+            <div class="field">
+                <label>Special Instructions:</label>
+                <input type="text" ng-model="user.specialInstr" name="uSpecInst" required="">
+            </div>
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label>Start Time:</label>
+                <input type="time" ng-model="user.startTime" name="uStartTime" required="">
+            </div>
+            <div class="field">
+                <label>End Time:</label>
+                <input type="time" ng-model="user.endTime" name="uEndTime" required="">
+            </div>
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label>Contact Email:</label>
+                <input type="email" ng-model="user.email" name="uEmail" required="">
+            </div>
+            <div class="field">
+                <label>Contact Email (confirm):</label>
+                <input type="email">
+            </div>
+        </div>
+        <div class="fields">
+            <div class="inline field">
+                <label>I agree to be clean and good to the room:</label>
+                <input type="checkbox">
+            </div>
+        </div>
+        <div class="ui error message">
+            <div class="header">Error</div>
+            <p ng-show="ctrl.myForm.uEmail.$error.required">Contact Email cannot be empty.</p>
+            <p ng-show="ctrl.myForm.uEmail.$error.email">Contact Email is not a valid email address.</p>
+        </div>
+        <div class="fields">
+            <div class="field">
+                <button type="submit" class="ui large submit button">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
